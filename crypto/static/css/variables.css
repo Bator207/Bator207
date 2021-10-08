@@ -1,0 +1,10 @@
+:root{
+    /* Variables para todo el ambito */
+    --color-primario: #4D908E;
+    --color-secundario: #f7dba7;
+    --negro: #3c363f;
+    --blanco: #fafafa;
+    --color-fondo-header: #005f73;
+    --color-fondo: #83A0A0;
+    --separacion-defecto: 16px;
+}

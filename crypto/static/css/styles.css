@@ -1,0 +1,32 @@
+.contenedor {
+    margin:0;
+    padding:0;
+    background-color: var(--color-fondo);
+}
+
+.footer {
+    padding: 1.5rem;
+    background-color: var(--color-fondo-header);
+    color: var(--color-secundario);
+}
+
+.cabecera {
+    font-size: 2rem;
+    background-color: var(--color-fondo-header);
+    color: var(--color-secundario);
+    padding: 1.5rem;
+}
+
+.table {
+    background-color: var(--color-fondo);
+    /* padding: 1rem; */
+}
+
+.tabla-movimientos {
+    display: flex;
+    justify-content: center;
+}
+
+.button.is-dark {
+    margin:1.5rem 35%
+}
