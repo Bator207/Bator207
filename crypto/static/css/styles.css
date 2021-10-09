@@ -22,6 +22,11 @@
     margin-left: auto;
 }
 
+.form-alta {
+    display: flex;
+    justify-content:space-around;
+}
+
 #error {
     color: red;
     margin:1rem 30%;
