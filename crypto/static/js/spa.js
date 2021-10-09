@@ -19,10 +19,19 @@ function muestraMovimientos () {
                                 <td>${movimientos[i].cantidad_to}</td>
                             </tr>`
         }
-        console.log(innerHTML)
         tabla.innerHTML = innerHTML
-    } else {
-        alert("Se ha producido un error en la consulta de movimientos")
+    } else if (this.status === 400) {
+        const respuesta = JSON.parse(this.response)
+        const transaccion = respuesta.movimientos
+        const tabla = document.querySelector('#tabla-movimientos')
+        tabla.innerHTML = ""
+
+        let innerHTML = ""
+        innerHTML = innerHTML + 
+                        `<p class="content is-large" id="error">
+                            ${transaccion}
+                        </p>`
+        tabla.innerHTML = innerHTML
     }
 }
 

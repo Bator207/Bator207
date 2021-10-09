@@ -1,13 +1,8 @@
 .contenedor {
-    margin:0;
     padding:0;
-    background-color: var(--color-fondo);
-}
-
-.footer {
-    padding: 1.5rem;
-    background-color: var(--color-fondo-header);
-    color: var(--color-secundario);
+    margin:0 auto;
+    max-width: var(--max-width);
+    /* background-color: var(--color-fondo); */
 }
 
 .cabecera {
@@ -17,16 +12,23 @@
     padding: 1.5rem;
 }
 
-.table {
-    background-color: var(--color-fondo);
-    /* padding: 1rem; */
-}
-
-.tabla-movimientos {
-    display: flex;
-    justify-content: center;
-}
-
 .button.is-dark {
-    margin:1.5rem 35%
+    margin:0 30%;
+}
+
+.table {
+    /* background-color: var(--color-fondo); */
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#error {
+    color: red;
+    margin:1rem 30%;
+}
+
+.footer {
+    padding: 1.5rem;
+    background-color: var(--color-fondo-header);
+    color: var(--color-secundario);
 }

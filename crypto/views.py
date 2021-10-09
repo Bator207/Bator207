@@ -12,10 +12,18 @@ def index():
 @app.route('/api/v1.0/movimientos')
 def lista_movimientos():
     consulta = 'SELECT id, data, time,moneda_from ,cantidad_from, moneda_to, cantidad_to FROM movimientos ORDER BY data'
-    movimientos = bbdd.consultaSQL(consulta)
-    resultados={
-        'status':'success',
-        'movimientos': movimientos
-    }
-    
+    try:
+        movimientos = bbdd.consultaSQL(consulta)
+        resultados={
+            'status':'success',
+            'movimientos': movimientos
+        }
+
+    except Exception as error:
+        resultados={
+            'status':'fail',
+            'movimientos': str(error)
+        }
+        return jsonify(resultados), 400
+        
     return jsonify(resultados)
