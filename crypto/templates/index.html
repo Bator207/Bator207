@@ -16,9 +16,14 @@
             <p>CryptoGrifo</p>
         </header>
         <section class="contenedor">
-            <h1 class="title is-1" >Lista de movimientos</h1>
-            <button class="button is-dark" id="btn-nuevo">Nuevo</button>
+            <article id="botones-selector">
+                <div class="field is-grouped" id="nuevo-estado">
+                    <button class="button is-dark is-medium" id="btn-nuevo">Nuevo</button>
+                    <button class="button is-dark is-medium" id="btn-estado">Estado</button>
+                </div>
+            </article>
             <article id="tabla-movimientos">
+                <h1 class="title is-1" >Lista de movimientos</h1>
                 <table class="table">
                     <thead>
                         <th>Fecha</th>
@@ -32,16 +37,76 @@
                 </table>
             </article>
             <article id="formulario-alta">
-                <div class="block">
-                    <h1 class="title is-1">Alta movimientos</h1>
-                    <form action="" class="inactivo">
-                        <div class="field">
+                <h1 class="title is-1">Alta movimientos</h1>
+                <form id="form-alta" class="inactivo">
+                    <div class="field is-grouped" id="selector">
+                        <div class="field is-grouped">
                             <label class="label">From:</label>
-                            <div class="select is-rounded">
-                                <option disabled selected>moneda-from</option>
+                            <div class="control">
+                                <div class="select">
+                                    <select>
+                                        <option disabled selected>moneda-from</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                    </form>
+                        <div class="field is-grouped">
+                            <label class="label">From:</label>
+                            <div class="control">
+                                <div class="select">
+                                    <select>
+                                        <option disabled selected>moneda-to</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-grouped" id="inputs">
+                        <div class="field is-grouped">
+                            <label class="label">Cantidad</label>
+                            <div class="control">
+                                <input type="text" class="input">
+                            </div>
+                            <button class="button is-link">Calcular</button>
+                        </div>
+                        <div class="field is-grouped">
+                            <label class="label">Cantidad</label>
+                            <div class="control">
+                                <input type="text" class="input" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-grouped" id="precio-uni">
+                        <label class="label">Precio unitario</label>
+                        <div class="control">
+                            <input type="text" class="input" disabled>
+                        </div>
+                    </div>
+                    <div class="field is-grouped" id="botones">
+                        <button class="button is-success">Aceptar</button>
+                        <button class="button is-danger">Cancelar</button>
+                    </div>
+                </form>
+            </article>
+            <article id="estado">
+                <h1 class="title is-1" >Estado de la inversión</h1>
+                <div class="field is-grouped">
+                    <label class="label">Invertido:</label>
+                    <div class="control">
+                        <input type="text" class="input" disabled>
+                    </div>
+                </div>
+                <div class="field is-grouped">
+                    <label class="label">Valor:</label>
+                    <div class="control">
+                        <input type="text" class="input" disabled>
+                    </div>
+                </div>
+                <div class="field is-grouped">
+                    <label class="label">Resultado</label>
+                    <div class="control">
+                        <input type="text" class="input" disabled>
+                    </div>
                 </div>
             </article>
         </section>
