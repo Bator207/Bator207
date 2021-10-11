@@ -6,26 +6,34 @@ function muestraMovimientos () {
         const respuesta = JSON.parse(this.response)
         const movimientos = respuesta.movimientos
         const tabla = document.querySelector('#tabla-datos')
-
         let innerHTML = ""
-        for (let i=0; i < movimientos.length; i++){
+        if (movimientos.length > 0) {
+            for (let i=0; i < movimientos.length; i++){
+                innerHTML = innerHTML + 
+                                `<tr>
+                                    <td>${movimientos[i].data}</td>
+                                    <td>${movimientos[i].time}</td>
+                                    <td>${movimientos[i].moneda_from}</td>
+                                    <td>${movimientos[i].cantidad_from}</td>
+                                    <td>${movimientos[i].moneda_to}</td>
+                                    <td>${movimientos[i].cantidad_to}</td>
+                                </tr>`
+                            }
+                            tabla.innerHTML = innerHTML
+        } else {
+            tabla.innerHTML=""
+            let innerHTML = ""
             innerHTML = innerHTML + 
-                            `<tr>
-                                <td>${movimientos[i].data}</td>
-                                <td>${movimientos[i].time}</td>
-                                <td>${movimientos[i].moneda_from}</td>
-                                <td>${movimientos[i].cantidad_from}</td>
-                                <td>${movimientos[i].moneda_to}</td>
-                                <td>${movimientos[i].cantidad_to}</td>
-                            </tr>`
+                        `<p class="content is-large">
+                            No tienes movimientos a mostrar
+                        </p>`
+            tabla.innerHTML = innerHTML
         }
-        tabla.innerHTML = innerHTML
     } else if (this.status === 400) {
         const respuesta = JSON.parse(this.response)
         const transaccion = respuesta.movimientos
         const tabla = document.querySelector('#tabla-movimientos')
         tabla.innerHTML = ""
-
         let innerHTML = ""
         innerHTML = innerHTML + 
                         `<p class="content is-large" id="error">
