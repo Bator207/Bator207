@@ -13,11 +13,10 @@
 
 #nuevo-estado {
     display: flex;
-    justify-content:flex-end;
+    justify-content:center;
 }
-#btn-nuevo, #btn-estado {
-    margin: 0 25px;
-    
+#btn-nuevo, #btn-estado,#btn-lista {
+    margin: 50px 25px;
 }
 
 .table {
@@ -50,6 +49,10 @@
 #botones {
     display: flex;
     justify-content:space-evenly;
+}
+
+.inactivo {
+    display: none;
 }
 
 .footer {

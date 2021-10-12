@@ -18,11 +18,12 @@
         <section class="contenedor">
             <article id="botones-selector">
                 <div class="field is-grouped" id="nuevo-estado">
+                    <button class="button is-dark is-medium" id="btn-lista">Movimientos</button>
                     <button class="button is-dark is-medium" id="btn-nuevo">Nuevo</button>
                     <button class="button is-dark is-medium" id="btn-estado">Estado</button>
                 </div>
             </article>
-            <article id="tabla-movimientos">
+            <article id="tabla-movimientos" class="inactivo">
                 <h1 class="title is-1" >Lista de movimientos</h1>
                 <table class="table">
                     <thead>
@@ -36,15 +37,15 @@
                     <tbody id="tabla-datos"></tbody>
                 </table>
             </article>
-            <article id="formulario-alta">
+            <article id="formulario-alta" class="inactivo">
                 <h1 class="title is-1">Alta movimientos</h1>
-                <form id="form-alta" class="inactivo">
+                <form id="form-alta" >
                     <div class="field is-grouped" id="selector">
                         <div class="field is-grouped">
                             <label class="label">From:</label>
                             <div class="control">
                                 <div class="select">
-                                    <select>
+                                    <select id="from">
                                         <option disabled selected>moneda-from</option>
                                     </select>
                                 </div>
@@ -54,7 +55,7 @@
                             <label class="label">From:</label>
                             <div class="control">
                                 <div class="select">
-                                    <select>
+                                    <select id="to">
                                         <option disabled selected>moneda-to</option>
                                     </select>
                                 </div>
@@ -65,14 +66,14 @@
                         <div class="field is-grouped">
                             <label class="label">Cantidad</label>
                             <div class="control">
-                                <input type="text" class="input">
+                                <input type="text" class="input" id="cantidad-from">
                             </div>
-                            <button class="button is-link">Calcular</button>
+                            <button class="button is-link" id="calcular">Calcular</button>
                         </div>
                         <div class="field is-grouped">
                             <label class="label">Cantidad</label>
                             <div class="control">
-                                <input type="text" class="input" disabled>
+                                <input type="text" class="input" id="cantidad-to" disabled>
                             </div>
                         </div>
                     </div>
@@ -83,12 +84,12 @@
                         </div>
                     </div>
                     <div class="field is-grouped" id="botones">
-                        <button class="button is-success">Aceptar</button>
-                        <button class="button is-danger">Cancelar</button>
+                        <button class="button is-success" id="aceptar">Aceptar</button>
+                        <button class="button is-danger" id="cancelar">Cancelar</button>
                     </div>
                 </form>
             </article>
-            <article id="estado">
+            <article id="estado" class="inactivo">
                 <h1 class="title is-1" >Estado de la inversión</h1>
                 <div class="field is-grouped">
                     <label class="label">Invertido:</label>
