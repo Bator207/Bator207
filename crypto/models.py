@@ -8,12 +8,9 @@ class DBManager():
 
     # Funcion que sirve para crear una consulta a la BBDD que devuelta una entrada o varias
     def consultaSQL(self, consulta, params=[]):
-        # posible error de conexion BBDD
         conexion = sqlite3.connect(self.ruta_bbdd)
         cursor = conexion.cursor()
-        # posible error al ejecutar consulta
         cursor.execute(consulta, params)
-        # comprobar si la tabla tiene valores
         claves = cursor.description
         resultado = []
         for fila in cursor.fetchall():
