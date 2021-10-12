@@ -20,3 +20,6 @@ class DBManager():
             resultado.append(d)
         conexion.close()
         return resultado
+
+    def modificaSQL(self, consulta, params=[]):
+        pass

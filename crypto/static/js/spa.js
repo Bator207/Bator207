@@ -50,6 +50,13 @@ function altaMovimiento () {
     const fecha = f.getFullYear() + '-' + f.getMonth() + '-' + f.getDate()
     const hora = f.getHours() + ':' + f.getMinutes() + ':' + f.getSeconds()
     const from = document.querySelector("#from").value
+    const cantFrom = document.querySelector('#cantidad-from').value
+
+    
+}
+
+function calcular () {
+    ev.preventDefault()
     
 }
 
