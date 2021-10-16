@@ -1,6 +1,6 @@
 from crypto import app
 from flask import render_template, jsonify, request
-from crypto.models import DBManager
+from crypto.models import CoinAPI, DBManager
 
 ruta_basedatos = app.config.get("RUTA_BASE_DE_DATOS")
 bbdd = DBManager(ruta_basedatos)
@@ -47,3 +47,21 @@ def alta_movimiento():
         return jsonify(resultado)
     except:
         print ("salio mal")
+
+@app.route('/api/v1.0/calcular/', methods=['POST'])
+def calcular_cantidad_to():
+    de = request.json['moneda_from']
+    a = request.json['moneda_to']
+    cd = request.json['cantidad_from']
+    coinApi = CoinAPI()
+    pu = coinApi.cambiarMonedas(de,a)
+    ca=float(cd)*float(pu)
+    resultado = {
+        'moneda_from':de,
+        'moneda_to':a,
+        'cantidad_from':cd,
+        'pu':pu,
+        'cantidad_to':ca
+    }
+    print(f"resultado: {resultado}")
+    return jsonify(resultado)

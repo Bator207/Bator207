@@ -2,6 +2,7 @@ const root_host = "http://localhost:5000/api/v1.0/"
 const listaMovimientos = new XMLHttpRequest()
 const listaMovimiento = new XMLHttpRequest()
 const altaMovimientos = new XMLHttpRequest()
+const calcularCantidadTo = new XMLHttpRequest()
 
 function muestraMovimientos () {
     if (this.readyState === 4 && this.status === 200){
@@ -45,8 +46,10 @@ function muestraMovimientos () {
     }
 }
 
-function altaMovimiento () {
-    // ev.preventDefault()
+function altaMovimiento (ev) {
+    ev.preventDefault()
+    const artForm = document.querySelector("#formulario-alta")
+    artForm.classList.add('#inactivo')
     let url_alta = `${root_host}alta/`
     let f = new Date()
     const fecha = f.getFullYear() + '-' + f.getMonth() + '-' + f.getDate()
@@ -60,13 +63,38 @@ function altaMovimiento () {
 
     altaMovimientos.open("POST", url_alta,true)
     altaMovimientos.setRequestHeader("Content-Type", "application/json")
-    console.log(JSON.stringify(json))
     altaMovimientos.send(JSON.stringify(json))
-    // altaMovimientos.onload = muestraMovimientos
+    altaMovimientos.onload = muestraMovimientos
+    // altaMovimientos.send()
 }
 
-function calcular () {
+function calcular (ev) {
     ev.preventDefault()
+    let url_calc = `${root_host}calcular/`
+
+    const from = document.querySelector("#from").value
+    const cantFrom = document.querySelector('#cantidad-from').value
+    const to = document.querySelector("#to").value
+
+    json = {"moneda_from":from, "cantidad_from":cantFrom, "moneda_to":to}
+
+    calcularCantidadTo.open('POST',url_calc, true)
+    calcularCantidadTo.setRequestHeader("Content-Type", "application/json")
+    calcularCantidadTo.send(JSON.stringify(json))
+    calcularCantidadTo.onload = pintarResultado
+}
+
+function pintarResultado() {
+    const respuesta = JSON.parse(this.response)
+    if (this.readyState === 4 && this.status === 200){
+        document.querySelector('#cantidad-from').value = respuesta.cantidad_from
+        document.querySelector('#cantidad-to').value = respuesta.cantidad_to
+        document.querySelector('#precio-uni').value = respuesta.pu
+        document.querySelector('#to').value = respuesta.moneda_to
+        document.querySelector('#from').value = respuesta.moneda_from
+    }else{
+        alert('No pinto nada')
+    }
 }
 
 function hazVisibleElemento (elemento) {
@@ -105,6 +133,11 @@ window.onload = function() {
     // listaMovimiento.setRequestHeader("Content-Type", "application/json")
     // listaMovimiento.onload = muestraMovimientos
     // listaMovimiento.send()
+    const btnAceptar = document.querySelector("#aceptar")
+    btnAceptar.addEventListener("click", altaMovimiento)
+
+    const btnCalcular = document.querySelector("#calcular")
+    btnCalcular.addEventListener("click", calcular)
 
     const btnLista = document.querySelector("#btn-lista")
     btnLista.addEventListener("click", function(ev) {
@@ -130,6 +163,4 @@ window.onload = function() {
         hazVisibleElemento("busca")
     })
 
-    const btnAceptar = document.querySelector("#aceptar")
-    btnAceptar.addEventListener("click", altaMovimiento)
 }
