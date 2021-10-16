@@ -19,6 +19,7 @@
             <article id="botones-selector">
                 <div class="field is-grouped" id="nuevo-estado">
                     <button class="button is-dark is-medium" id="btn-lista">Movimientos</button>
+                    <button class="button is-dark is-medium" id="btn-busca">Buscar movimientos</button>
                     <button class="button is-dark is-medium" id="btn-nuevo">Nuevo</button>
                     <button class="button is-dark is-medium" id="btn-estado">Estado</button>
                 </div>
@@ -37,6 +38,18 @@
                     <tbody id="tabla-datos"></tbody>
                 </table>
             </article>
+            <article id="busqueda" class="inactivo">
+                <h1 class="title is-1">Busqueda de movimiento</h1>
+                <form id="form-busca">
+                    <div class="field is-grouped">
+                        <label class="label">ID</label>
+                        <div class="control">
+                            <input type="number" class="input" id="identificador">
+                        </div>
+                        <button class="button is-info" id="btn-buscar">Buscar</button>
+                    </div>
+                </form>
+            </article>
             <article id="formulario-alta" class="inactivo">
                 <h1 class="title is-1">Alta movimientos</h1>
                 <form id="form-alta" >
@@ -46,7 +59,18 @@
                             <div class="control">
                                 <div class="select">
                                     <select id="from">
-                                        <option disabled selected>moneda-from</option>
+                                        <option value="EUR">EUR - Euro</option>
+                                        <option value="BTC">BTC - Bitcoin</option>
+                                        <option value="ETH">ETH - Ethereum</option>
+                                        <option value="LTC">LTC - Litecoin</option>
+                                        <option value="XRP">XRP - Ripple</option>
+                                        <option value="USDT">USDT - Tether</option>
+                                        <option value="XLM">XLM - Stellar Lumens</option>
+                                        <option value="BNB">BNB - Binance Coin</option>
+                                        <option value="EOS">EOS - EOS</option>
+                                        <option value="BCH">BCH - Bitcoin Cash</option>
+                                        <option value="TRX">TRX - TRON</option>
+                                        <option value="ADA">ADA - Cardano</option>
                                     </select>
                                 </div>
                             </div>
@@ -56,7 +80,18 @@
                             <div class="control">
                                 <div class="select">
                                     <select id="to">
-                                        <option disabled selected>moneda-to</option>
+                                        <option value="EUR">EUR - Euro</option>
+                                        <option value="BTC">BTC - Bitcoin</option>
+                                        <option value="ETH">ETH - Ethereum</option>
+                                        <option value="LTC">LTC - Litecoin</option>
+                                        <option value="XRP">XRP - Ripple</option>
+                                        <option value="USDT">USDT - Tether</option>
+                                        <option value="XLM">XLM - Stellar Lumens</option>
+                                        <option value="BNB">BNB - Binance Coin</option>
+                                        <option value="EOS">EOS - EOS</option>
+                                        <option value="BCH">BCH - Bitcoin Cash</option>
+                                        <option value="TRX">TRX - TRON</option>
+                                        <option value="ADA">ADA - Cardano</option>
                                     </select>
                                 </div>
                             </div>
@@ -68,12 +103,12 @@
                             <div class="control">
                                 <input type="text" class="input" id="cantidad-from">
                             </div>
-                            <button class="button is-link" id="calcular">Calcular</button>
+                            <button class="button is-info" id="calcular"><img class="image is-32x32" src="/static/img/calc.png" alt="Calculadora"></button>
                         </div>
                         <div class="field is-grouped">
                             <label class="label">Cantidad</label>
                             <div class="control" id="input-to">
-                                <input type="text" class="input" id="cantidad-to" value=0€ disabled>
+                                <input type="text" class="input" id="cantidad-to" value=0 disabled>
                             </div>
                         </div>
                     </div>

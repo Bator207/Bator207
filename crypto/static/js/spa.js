@@ -1,5 +1,6 @@
 const root_host = "http://localhost:5000/api/v1.0/"
 const listaMovimientos = new XMLHttpRequest()
+const listaMovimiento = new XMLHttpRequest()
 const altaMovimientos = new XMLHttpRequest()
 
 function muestraMovimientos () {
@@ -45,51 +46,51 @@ function muestraMovimientos () {
 }
 
 function altaMovimiento () {
-    ev.preventDefault()
+    // ev.preventDefault()
+    let url_alta = `${root_host}alta/`
     let f = new Date()
     const fecha = f.getFullYear() + '-' + f.getMonth() + '-' + f.getDate()
     const hora = f.getHours() + ':' + f.getMinutes() + ':' + f.getSeconds()
     const from = document.querySelector("#from").value
     const cantFrom = document.querySelector('#cantidad-from').value
+    const to = document.querySelector("#to").value
+    const cantTo = document.querySelector('#cantidad-to').value
 
-    
+    json = {"data":fecha, "time":hora, "moneda_from":from, "cantidad_from":cantFrom, "moneda_to":to, "cantidad_to":cantTo}
+
+    altaMovimientos.open("POST", url_alta,true)
+    altaMovimientos.setRequestHeader("Content-Type", "application/json")
+    console.log(JSON.stringify(json))
+    altaMovimientos.send(JSON.stringify(json))
+    // altaMovimientos.onload = muestraMovimientos
 }
 
 function calcular () {
     ev.preventDefault()
-    
 }
 
-// Preguntar para hacer solo una funcion
-// Preguntar en la tabla SQL, por el campo cantidad_to
-function hazVisibleTabla (ev) {
-    ev.preventDefault()
+function hazVisibleElemento (elemento) {
+    //inicias los 4 botones. Añades inactivo. if el que quieres ver.
     const artTabla = document.querySelector("#tabla-movimientos")
     const artForm = document.querySelector("#formulario-alta")
     const artEstado = document.querySelector("#estado")
-    artTabla.classList.remove("inactivo")
-    artForm.classList.add("inactivo")
-    artEstado.classList.add("inactivo")
-}
-
-function hazVisibleForm (ev) {
-    ev.preventDefault()
-    const artTabla = document.querySelector("#tabla-movimientos")
-    const artForm = document.querySelector("#formulario-alta")
-    const artEstado = document.querySelector("#estado")
-    artTabla.classList.add("inactivo")
-    artForm.classList.remove("inactivo")
-    artEstado.classList.add("inactivo")
-}
-
-function hazVisibleEstado (ev) {
-    ev.preventDefault()
-    const artTabla = document.querySelector("#tabla-movimientos")
-    const artForm = document.querySelector("#formulario-alta")
-    const artEstado = document.querySelector("#estado")
+    const artbusqueda = document.querySelector("#busqueda")
     artTabla.classList.add("inactivo")
     artForm.classList.add("inactivo")
-    artEstado.classList.remove("inactivo")
+    artEstado.classList.add("inactivo")
+    artbusqueda.classList.add("inactivo")
+    if (elemento == "lista") {
+        artTabla.classList.remove("inactivo")
+    }
+    else if (elemento == "nuevo") {
+        artForm.classList.remove("inactivo")
+    }
+    else if (elemento == "estado") {
+        artEstado.classList.remove("inactivo")
+    }
+    else if (elemento == "busca") {
+        artbusqueda.classList.remove("inactivo")
+    }
 }
 
 window.onload = function() {
@@ -98,13 +99,37 @@ window.onload = function() {
     listaMovimientos.onload = muestraMovimientos
     listaMovimientos.send()
 
+    // const id = document.querySelector("#identificador").value
+    // const url_id = `${root_host}movimiento/${id}`
+    // listaMovimiento.open("GET", url_id, true)
+    // listaMovimiento.setRequestHeader("Content-Type", "application/json")
+    // listaMovimiento.onload = muestraMovimientos
+    // listaMovimiento.send()
+
     const btnLista = document.querySelector("#btn-lista")
-    btnLista.addEventListener("click", hazVisibleTabla)
+    btnLista.addEventListener("click", function(ev) {
+        ev.preventDefault()
+        hazVisibleElemento("lista")
+    })
 
     const btnNuevo = document.querySelector("#btn-nuevo")
-    btnNuevo.addEventListener("click", hazVisibleForm)
+    btnNuevo.addEventListener("click", function(ev) {
+        ev.preventDefault()
+        hazVisibleElemento("nuevo")
+    })
 
     const btnEstado = document.querySelector("#btn-estado")
-    btnEstado.addEventListener("click", hazVisibleEstado)
+    btnEstado.addEventListener("click", function(ev) {
+        ev.preventDefault()
+        hazVisibleElemento("estado")
+    })
 
+    const btnBusca = document.querySelector("#btn-busca")
+    btnBusca.addEventListener("click", function(ev) {
+        ev.preventDefault()
+        hazVisibleElemento("busca")
+    })
+
+    const btnAceptar = document.querySelector("#aceptar")
+    btnAceptar.addEventListener("click", altaMovimiento)
 }

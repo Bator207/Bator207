@@ -9,16 +9,20 @@ bbdd = DBManager(ruta_basedatos)
 def index():
     return render_template('index.html')
 
-@app.route('/api/v1.0/movimientos')
-def lista_movimientos():
-    consulta = 'SELECT id, data, time,moneda_from ,cantidad_from, moneda_to, cantidad_to FROM movimientos ORDER BY data'
+@app.route('/api/v1.0/movimientos/')
+@app.route('/api/v1.0/movimiento/<id>/')
+def lista_movimientos(id=None):
+    if id==None:
+        consulta = 'SELECT id, data, time,moneda_from ,cantidad_from, moneda_to, cantidad_to FROM movimientos ORDER BY data'
+    else:
+        consulta = 'SELECT id, data, time,moneda_from ,cantidad_from, moneda_to, cantidad_to FROM movimientos WHERE id=?;'
     try:
         movimientos = bbdd.consultaSQL(consulta)
         resultados={
             'status':'success',
             'movimientos': movimientos
         }
-
+        return jsonify(resultados)
     except Exception as error:
         resultados={
             'status':'fail',
@@ -26,18 +30,20 @@ def lista_movimientos():
         }
         return jsonify(resultados), 400
         
-    return jsonify(resultados)
 
-@app.route('/api/v1.0/alta', methods=['POST'])
+        
+@app.route('/api/v1.0/alta/', methods=['POST'])
 def alta_movimiento():
     consulta = "INSERT INTO movimientos (data, time, moneda_from, cantidad_from, moneda_to, cantidad_to) VALUES (:data, :time, :moneda_from, :cantidad_from, :moneda_to, :cantidad_to)"
     maxID = "SELECT MAX(id) FROM movimientos"
     try:
         bbdd.modificaSQL(consulta, request.json)
+
         resultado={
             'status':'success',
-            'id':'id',
+            'id':'maxID',
             'monedas':1
         }
+        return jsonify(resultado)
     except:
-        pass
+        print ("salio mal")

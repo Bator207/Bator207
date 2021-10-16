@@ -9,6 +9,8 @@ pip install -r requirements.txt
 ```
 2. Cambiar variables de entorno. Duplicar el fichero .env_template, informar correctamente y renombrar a .env
 
+3. Agregar config
+
 # Ejecución
 Ejecutar el mandato `flask run` en el terminal
 
