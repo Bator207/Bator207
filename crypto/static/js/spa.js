@@ -3,6 +3,26 @@ const listaMovimientos = new XMLHttpRequest()
 const listaMovimiento = new XMLHttpRequest()
 const altaMovimientos = new XMLHttpRequest()
 const calcularCantidadTo = new XMLHttpRequest()
+const mostrarCriptosFrom = new XMLHttpRequest()
+
+function criptoMonedasFrom() {
+    if (this.readyState === 4 && this.status === 200){
+        const respuesta = JSON.parse(this.response)
+        const monedas = respuesta.monedas
+        const opciones = document.querySelector('#from')
+        let innerHTML = `<option disabled selected>Elije una cripto</option>
+        <option value="EUR">EUR</option>`
+        if (monedas.length > 0){
+            for (let i=0; i < monedas.length; i++){
+                innerHTML = innerHTML + 
+                `<option value=${monedas[i].moneda_to}>${monedas[i].moneda_to}</option>` 
+            }
+            opciones.innerHTML = innerHTML
+        }
+    } else {
+        console.log("fuera del if")
+    }
+}
 
 function muestraMovimientos () {
     if (this.readyState === 4 && this.status === 200){
@@ -48,9 +68,16 @@ function muestraMovimientos () {
 
 function altaMovimiento (ev) {
     ev.preventDefault()
+    // const url_cripto = `${root_host}mostrarcriptos`
+    // mostrarCriptosFrom.open("GET", url_cripto, true)
+    // mostrarCriptosFrom.onload = criptoMonedasFrom
+    // mostrarCriptosFrom.send()
+
     const artForm = document.querySelector("#formulario-alta")
     artForm.classList.add('#inactivo')
+    
     let url_alta = `${root_host}alta/`
+
     let f = new Date()
     const fecha = f.getFullYear() + '-' + f.getMonth() + '-' + f.getDate()
     const hora = f.getHours() + ':' + f.getMinutes() + ':' + f.getSeconds()
@@ -65,7 +92,6 @@ function altaMovimiento (ev) {
     altaMovimientos.setRequestHeader("Content-Type", "application/json")
     altaMovimientos.send(JSON.stringify(json))
     altaMovimientos.onload = muestraMovimientos
-    // altaMovimientos.send()
 }
 
 function calcular (ev) {
@@ -92,8 +118,17 @@ function pintarResultado() {
         document.querySelector('#precio-uni').value = respuesta.pu
         document.querySelector('#to').value = respuesta.moneda_to
         document.querySelector('#from').value = respuesta.moneda_from
-    }else{
-        alert('No pinto nada')
+    }else if (this.status === 400) {
+        const respuesta = JSON.parse(this.response)
+        const transaccion = respuesta.mensaje
+        const tabla = document.querySelector('#formulario-alta')
+        tabla.innerHTML = ""
+        let innerHTML = ""
+        innerHTML = innerHTML + 
+                        `<p class="content is-large" id="error">
+                            ${transaccion}
+                        </p>`
+        tabla.innerHTML = innerHTML
     }
 }
 
@@ -139,6 +174,17 @@ window.onload = function() {
     const btnCalcular = document.querySelector("#calcular")
     btnCalcular.addEventListener("click", calcular)
 
+    const sltFrom = document.querySelector("#from")
+    sltFrom.addEventListener("click", function(ev) {
+        ev.preventDefault()
+        const url_cripto = `${root_host}mostrarcriptos`
+        mostrarCriptosFrom.open("GET", url_cripto, true)
+        mostrarCriptosFrom.onload = criptoMonedasFrom
+        mostrarCriptosFrom.send()
+    })
+
+
+
     const btnLista = document.querySelector("#btn-lista")
     btnLista.addEventListener("click", function(ev) {
         ev.preventDefault()
@@ -162,5 +208,4 @@ window.onload = function() {
         ev.preventDefault()
         hazVisibleElemento("busca")
     })
-
 }

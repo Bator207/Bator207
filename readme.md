@@ -1,6 +1,6 @@
-# Registro de ingresos y gastos domésticos
+# Registro de movimientos de criptomonedas
 
-Haremos una web que hace lo que dice el título
+Vamos a hacer un registro de inversiones y compra/venta de criptos para jugar con los valores a ver si podemos hacer crecer nuestra inversión en euros.
 
 # Instalación
 1. Instalar las dependencias con pip
@@ -9,10 +9,7 @@ pip install -r requirements.txt
 ```
 2. Cambiar variables de entorno. Duplicar el fichero .env_template, informar correctamente y renombrar a .env
 
-3. Agregar config
-
-# Ejecución
-Ejecutar el mandato `flask run` en el terminal
+3. Cambiar el config. Duplicar el fichero config_template.py, informar correctamente y renombrar a config.py
 
 # Creación de la base de datos
 Con sqLite3 crear la base de datos donde te guste.
@@ -20,4 +17,6 @@ Ejecutar
 ```
 .read migrations/initial.sql
 ```
-Poner la ruta de la base de datos en la clave RUTA_BASE_DE_DATOS del fichero config.py
+
+# Ejecución
+Ejecutar el mandato `flask run` en el terminal
