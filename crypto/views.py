@@ -50,7 +50,7 @@ def alta_movimiento():
         print("json: ",request.json)
         bbdd.modificaSQL(consulta, request.json)
         id= bbdd.consultaSQL(maxID)
-        monedas='moneda origen: '+id[0]['moneda_from']+' - Moneda destino: '+id[0]['moneda_to']
+        monedas='Moneda origen: '+id[0]['moneda_from']+' - Moneda destino: '+id[0]['moneda_to']
         resultado={
             'status':'success',
             'id':id[0]['maxid'],
