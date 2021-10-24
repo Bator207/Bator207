@@ -54,6 +54,10 @@
     display: none;
 }
 
+#resultado {
+    color:red;
+}
+
 .footer {
     padding: 1.5rem;
     background-color: var(--color-fondo-header);

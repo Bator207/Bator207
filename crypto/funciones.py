@@ -9,34 +9,49 @@ def balanceMonedas():
     consulta_monedas_to = "SELECT DISTINCT moneda_to FROM movimientos;"
     mfrom = {}
     mto = {}
+    monedas=[]
 
     try:
         monedas_from = bbdd.consultaSQL(consulta_monedas_from)
-        for i in monedas_from:
-            consulta_cantidad_from = f"SELECT SUM(cantidad_from) as cantidadFrom FROM movimientos WHERE moneda_from=\"{i['moneda_from']}\""
-            cantidad_from = bbdd.consultaSQL(consulta_cantidad_from)
-            mfrom[i['moneda_from']]=cantidad_from[0]['cantidadFrom']
-
         monedas_to = bbdd.consultaSQL(consulta_monedas_to)
+        for i in monedas_from:
+            if not i['moneda_from'] in monedas:
+                monedas.append(i['moneda_from'])
         for i in monedas_to:
-            consulta_cantidad_to = f"SELECT SUM(cantidad_to) as cantidadTo FROM movimientos WHERE moneda_to=\"{i['moneda_to']}\""
+            if not i['moneda_to'] in monedas:
+                monedas.append(i['moneda_to'])
+
+        for i in monedas:
+            consulta_cantidad_from = f"SELECT SUM(cantidad_from) as cantidadFrom FROM movimientos WHERE moneda_from=\"{i}\""
+            cantidad_from = bbdd.consultaSQL(consulta_cantidad_from)
+            mfrom[i]=cantidad_from[0]['cantidadFrom']
+
+        for i in monedas:
+            consulta_cantidad_to = f"SELECT SUM(cantidad_to) as cantidadTo FROM movimientos WHERE moneda_to=\"{i}\""
             cantidad_to = bbdd.consultaSQL(consulta_cantidad_to)
-            mto[i['moneda_to']]=cantidad_to[0]['cantidadTo']
+            mto[i]=cantidad_to[0]['cantidadTo']
+
         valorf={}
         valort={}
         valor={}
 
         for f in mfrom:
-            valorf[f]=round(mfrom[f],3)
+            if mfrom[f] == None:
+                valorf[f] = 0
+            else:
+                valorf[f]=round(mfrom[f],3)
         for t in mto:
-            valort[t]=round(mto[t],3)
+            if mto[t] == None:
+                valort[t] = 0
+            else:
+                valort[t]=round(mto[t],3)
         valor = valort
         for item in valorf:
             if item == 'EUR':
-                valor.update({item:float(valorf[item])-float(valort[item])})
+                valor.update({item:valorf[item]-valort[item]})
             else:
                 valor.update({item:valort[item]-valorf[item]})
 
         return(valor)
-    except Exception as error:
-        print("mal balance", error)
+    except:
+        pass

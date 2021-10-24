@@ -32,8 +32,22 @@ def lista_movimientos():
 def alta_movimiento():
     consulta = "INSERT INTO movimientos (data, time, moneda_from, cantidad_from, moneda_to, cantidad_to) VALUES (:data, :time, :moneda_from, :cantidad_from, :moneda_to, :cantidad_to)"
     maxID = "SELECT MAX(id) as maxid,moneda_from,moneda_to FROM movimientos"
+    mio = balanceMonedas()
 
     try:
+        mf = request.json['moneda_from']
+        if mf != 'EUR':
+            if request.json['cantidad_from'] > mio[mf]:
+                print("mf: ",mf)
+                print('cantidad_compra:',request.json['cantidad_from'])
+                print('Cantidad tengo: ',mio[mf])
+                resultados={
+                'status':'fail',
+                'mensaje': 'Saldo insuficiente'
+                }
+                return jsonify(resultados),200
+        print("mio: ",mio)
+        print("json: ",request.json)
         bbdd.modificaSQL(consulta, request.json)
         id= bbdd.consultaSQL(maxID)
         monedas='moneda origen: '+id[0]['moneda_from']+' - Moneda destino: '+id[0]['moneda_to']

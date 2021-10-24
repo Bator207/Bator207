@@ -140,7 +140,11 @@ function respuestaAltaMovimiento() {
         listaMovimientos.send()
         const resultado = JSON.parse(this.response)
             alert (`Se ha creado el registro: ${resultado['id']}\r ${resultado['monedas']}`)
-    } else if (this.status === 400) {
+    } else if (this.status === 200) {
+        const respuesta = JSON.parse(this.response)
+        const transaccion = respuesta.mensaje
+        alert (transaccion)
+    }else if (this.status === 400) {
         const respuesta = JSON.parse(this.response)
         const transaccion = respuesta.error
         alert (transaccion)
@@ -176,10 +180,17 @@ function hazVisibleElemento (elemento) {
 
 function estadoInversion() {
     if (this.readyState === 4 && this.status === 200){
+        resultado = document.querySelector('#resultado')
+        resultado.classList.remove("resultado")
         const respuesta = JSON.parse(this.response)
         document.querySelector('#invertido').value = `${respuesta.invertido}€`
         document.querySelector('#valor').value = `${respuesta.valor}€`
         document.querySelector('#resultado').value = `${respuesta.balance}€`
+        let cadena = `${respuesta.balance}€`.charAt(0)
+        if (cadena === '-') {
+            resultado = document.querySelector('#resultado')
+            resultado.classList.add("resultado")
+        }
     } else if (this.status === 400) {
         const respuesta = JSON.parse(this.response)
         const transaccion = respuesta.error
