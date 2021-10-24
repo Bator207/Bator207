@@ -13,15 +13,16 @@ def balanceMonedas():
     try:
         monedas_from = bbdd.consultaSQL(consulta_monedas_from)
         for i in monedas_from:
-            consulta_cantidad_from = f"SELECT SUM(cantidad_from) as cantidadFrom FROM movimientos WHERE moneda_from=\"{i['moneda_from']}\""
+            consulta_cantidad_from = f"SELECT IFNULL(SUM(cantidad_from),0) as cantidad_from FROM movimientos WHERE moneda_from=\"{i['moneda_from']}\""
             cantidad_from = bbdd.consultaSQL(consulta_cantidad_from)
-            mfrom[i['moneda_from']]=cantidad_from[0]['cantidadFrom']
+            mfrom[i['moneda_from']]=cantidad_from[0]['cantidad_from']
 
         monedas_to = bbdd.consultaSQL(consulta_monedas_to)
         for i in monedas_to:
-            consulta_cantidad_to = f"SELECT SUM(cantidad_to) as cantidadTo FROM movimientos WHERE moneda_to=\"{i['moneda_to']}\""
+            consulta_cantidad_to = f"SELECT IFNULL(SUM(cantidad_to),0) as cantidad_to FROM movimientos WHERE moneda_to=\"{i['moneda_to']}\""
             cantidad_to = bbdd.consultaSQL(consulta_cantidad_to)
-            mto[i['moneda_to']]=cantidad_to[0]['cantidadTo']
+            mto[i['moneda_to']]=cantidad_to[0]['cantidad_to']
+
         valorf={}
         valort={}
         valor={}
@@ -33,10 +34,18 @@ def balanceMonedas():
         valor = valort
         for item in valorf:
             if item == 'EUR':
-                valor.update({item:float(valorf[item])-float(valort[item])})
+                print("valorf: ",valorf[item])
+                if valort[item] == 'null':
+                    valort.update({item:0})
+                print("valort: ",valort[item])
+                valor.update({item:valorf[item]-valort[item]})
             else:
-                valor.update({item:valort[item]-valorf[item]})
-
+                print("valorf: ",valorf[item])
+                print("valort: ",valort[item])
+                if valorf[item] == 'null':
+                    valorf.update({item:0})
+                    valor.update({item:valort[item]-valorf[item]})
+        print(valor)
         return(valor)
     except Exception as error:
         print("mal balance", error)
