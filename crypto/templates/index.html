@@ -19,7 +19,7 @@
             <article id="botones-selector">
                 <div class="field is-grouped" id="nuevo-estado">
                     <button class="button is-dark is-medium" id="btn-lista">Movimientos</button>
-                    <button class="button is-dark is-medium" id="btn-busca">Buscar movimientos</button>
+                    <!-- <button class="button is-dark is-medium" id="btn-busca" hidden>Buscar movimientos</button> -->
                     <button class="button is-dark is-medium" id="btn-nuevo">Nuevo</button>
                     <button class="button is-dark is-medium" id="btn-estado">Estado</button>
                 </div>
@@ -59,7 +59,7 @@
                             <div class="control">
                                 <div class="select">
                                     <select id="from">
-                                        <option disabled selected>Elije una cripto</option>
+                                        <!-- <option disabled selected>Elije una cripto</option>
                                         <option value="EUR">EUR - Euro</option>
                                         <option value="BTC">BTC - Bitcoin</option>
                                         <option value="ETH">ETH - Ethereum</option>
@@ -71,7 +71,7 @@
                                         <option value="EOS">EOS - EOS</option>
                                         <option value="BCH">BCH - Bitcoin Cash</option>
                                         <option value="TRX">TRX - TRON</option>
-                                        <option value="ADA">ADA - Cardano</option>
+                                        <option value="ADA">ADA - Cardano</option> -->
                                     </select>
                                 </div>
                             </div>
@@ -122,7 +122,6 @@
                     </div>
                     <div class="field is-grouped" id="botones">
                         <button class="button is-success" id="aceptar">Aceptar</button>
-                        <button class="button is-danger" id="cancelar">Cancelar</button>
                     </div>
                 </form>
             </article>
@@ -131,19 +130,19 @@
                 <div class="field is-grouped">
                     <label class="label">Invertido:</label>
                     <div class="control">
-                        <input type="text" class="input" disabled>
+                        <input type="text" class="input" id="invertido" disabled>
                     </div>
                 </div>
                 <div class="field is-grouped">
                     <label class="label">Valor:</label>
                     <div class="control">
-                        <input type="text" class="input" disabled>
+                        <input type="text" class="input" id="valor" disabled>
                     </div>
                 </div>
                 <div class="field is-grouped">
                     <label class="label">Resultado</label>
                     <div class="control">
-                        <input type="text" class="input" disabled>
+                        <input type="text" class="input" id="resultado" disabled>
                     </div>
                 </div>
             </article>

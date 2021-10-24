@@ -41,11 +41,8 @@ class CoinAPI():
     
     def obtenerMonedas(self):
         respuesta = requests.get(self.coinApi_monedas,headers=self.cabecera)
-        coin = []
         if respuesta.status_code == 200:
-            for item in requests.json():
-                coin.append(f"{item['asset_id']} - {item['moneda']}")
-                return coin
+            return respuesta.json()
         else:
             print(respuesta.json())
             raise APIError(f"Se ha producido el error {respuesta.status_code} en la petición")
