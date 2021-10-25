@@ -32,22 +32,8 @@ def lista_movimientos():
 def alta_movimiento():
     consulta = "INSERT INTO movimientos (data, time, moneda_from, cantidad_from, moneda_to, cantidad_to) VALUES (:data, :time, :moneda_from, :cantidad_from, :moneda_to, :cantidad_to)"
     maxID = "SELECT MAX(id) as maxid,moneda_from,moneda_to FROM movimientos"
-    mio = balanceMonedas()
 
     try:
-        mf = request.json['moneda_from']
-        if mf != 'EUR':
-            if request.json['cantidad_from'] > mio[mf]:
-                print("mf: ",mf)
-                print('cantidad_compra:',request.json['cantidad_from'])
-                print('Cantidad tengo: ',mio[mf])
-                resultados={
-                'status':'fail',
-                'mensaje': 'Saldo insuficiente'
-                }
-                return jsonify(resultados),200
-        print("mio: ",mio)
-        print("json: ",request.json)
         bbdd.modificaSQL(consulta, request.json)
         id= bbdd.consultaSQL(maxID)
         monedas='Moneda origen: '+id[0]['moneda_from']+' - Moneda destino: '+id[0]['moneda_to']
@@ -69,7 +55,16 @@ def calcular_cantidad_to():
     de = request.json['moneda_from']
     a = request.json['moneda_to']
     cd = request.json['cantidad_from']
+    mio = balanceMonedas()
+
     try:
+        if de != 'EUR':
+            if float(cd) > mio[de] or mio[de] == 0:
+                resultados={
+                'status':'fail',
+                'mensaje': 'Saldo insuficiente'
+                }
+                return jsonify(resultados),200
         cant_desde=float(cd)
         if de == "":
             resultado={"status":"fail",
@@ -93,7 +88,7 @@ def calcular_cantidad_to():
                 'pu':round(float(pu),2),
                 'cantidad_to':round(ca,2)
             }
-            return jsonify(resultado)
+            return jsonify(resultado),201
         return jsonify(resultado),400
     except Exception as error:
         resultados={

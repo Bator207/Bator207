@@ -50,12 +50,9 @@ def balanceMonedas():
             if item == 'EUR':
                 valor.update({item:valorf[item]-valort[item]})
             else:
-                print("valorf: ",valorf[item])
-                print("valort: ",valort[item])
                 if valorf[item] == 'null':
                     valorf.update({item:0})
-                    valor.update({item:valort[item]-valorf[item]})
-        print(valor)
+                valor.update({item:valort[item]-valorf[item]})
         return(valor)
     except:
         pass

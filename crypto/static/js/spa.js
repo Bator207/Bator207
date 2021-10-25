@@ -93,13 +93,17 @@ function calcular (ev) {
 }
 
 function pintarResultado() {
-    if (this.readyState === 4 && this.status === 200){
+    if (this.readyState === 4 && this.status === 201){
         const respuesta = JSON.parse(this.response)
         document.querySelector('#cantidad-from').value = respuesta.cantidad_from
         document.querySelector('#cantidad-to').value = respuesta.cantidad_to
         document.querySelector('#precio-uni').value = respuesta.pu
         document.querySelector('#to').value = respuesta.moneda_to
         document.querySelector('#from').value = respuesta.moneda_from
+    } else if (this.status === 200) {
+        const respuesta = JSON.parse(this.response)
+        const transaccion = respuesta.mensaje
+        alert (transaccion)
     }else if (this.status === 400) {
         const respuesta = JSON.parse(this.response)
         const transaccion = respuesta.error
@@ -140,10 +144,6 @@ function respuestaAltaMovimiento() {
         listaMovimientos.send()
         const resultado = JSON.parse(this.response)
             alert (`Se ha creado el registro: ${resultado['id']}\r ${resultado['monedas']}`)
-    } else if (this.status === 200) {
-        const respuesta = JSON.parse(this.response)
-        const transaccion = respuesta.mensaje
-        alert (transaccion)
     }else if (this.status === 400) {
         const respuesta = JSON.parse(this.response)
         const transaccion = respuesta.error
