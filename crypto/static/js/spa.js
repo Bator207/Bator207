@@ -187,9 +187,9 @@ function estadoInversion() {
         document.querySelector('#valor').value = `${respuesta.valor}€`
         document.querySelector('#resultado').value = `${respuesta.balance}€`
         let cadena = `${respuesta.balance}€`.charAt(0)
-        if (cadena === '-') {
-            resultado = document.querySelector('#resultado')
-            resultado.classList.add("resultado")
+        // alert(cadena)
+        if (cadena == '-') {
+            document.querySelector('#resultado').style.color = "red";
         }
     } else if (this.status === 400) {
         const respuesta = JSON.parse(this.response)

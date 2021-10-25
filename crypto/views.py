@@ -131,9 +131,9 @@ def estado():
                 valor = valor + (mio[f]*precioUSD[f]*precioEUR)
         balance=round(valor - mio['EUR'],2)
         resultado = {
-            'invertido':mio['EUR'],
+            'invertido':round(mio['EUR'],2),
             'valor':round(valor,2),
-            'balance':balance
+            'balance':round(balance,2)
         }
         return jsonify(resultado),200
     except:
